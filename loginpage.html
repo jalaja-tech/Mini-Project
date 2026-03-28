@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pransetu Desktop | Medicine Tracker</title>
+    <link rel="stylesheet" href="loginpage.css">
+    <!-- Google Fonts for a clean look -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <div class="desktop-wrapper">
+        <!-- Left Side: Branding & Visuals -->
+        <div class="side-panel">
+            <div class="overlay"></div>
+            <div class="panel-content">
+                <h1 class="logo">Pransetu</h1>
+                <p class="tagline">Bridging the gap to better health.</p>
+                <ul class="features">
+                    <li>✓ Track daily prescriptions</li>
+                    <li>✓ Dosage reminders</li>
+                    <li>✓ Secure medical history</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: Interaction Area -->
+        <div class="form-panel">
+            <div class="form-container">
+                
+                <!-- Login View -->
+                <div id="login-view">
+                    <h2>Welcome Back</h2>
+                    <p class="subtitle">Please enter your details to sign in.</p>
+                    <form id="login-form">
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="e.g. rahul@email.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="••••••••" required>
+                        </div>
+                        <div class="form-options">
+                            <label><input type="checkbox"> Remember me</label>
+                            <a href="#">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="main-btn">Sign In</button>
+                    </form>
+                    <p class="switch-text">New user? <span onclick="toggleView()">Create an account</span></p>
+                </div>
+
+                <!-- Signup View (Hidden by default) -->
+                <div id="signup-view" class="hidden">
+                    <h2>Create Account</h2>
+                    <p class="subtitle">Start managing your health today.</p>
+                    <form id="signup-form">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Rahul Sharma" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="rahul@email.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Create Password</label>
+                            <input type="password" placeholder="Min. 8 characters" required>
+                        </div>
+                        <button type="submit" class="main-btn">Register</button>
+                    </form>
+                    <p class="switch-text">Already a member? <span onclick="toggleView()">Log in here</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="loginpage.js"></script>
+</body>
+</html>

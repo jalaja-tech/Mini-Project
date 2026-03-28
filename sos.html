@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PranaSetu | Patient Portal</title>
+    <style>
+        :root {
+            --primary-blue: #2c3e50;
+            --medical-blue: #3498db;
+            --emergency-red: #e74c3c;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --success-green: #27ae60;
+        }
+
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg-light); display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 250px; background-color: var(--primary-blue); color: white; padding: 20px; position: fixed; height: 100vh; box-sizing: border-box; }
+        .main-content { margin-left: 250px; padding: 40px; width: calc(100% - 250px); }
+
+        /* SOS Button */
+        .sos-btn {
+            width: 100%; padding: 15px; background: var(--emergency-red); color: white;
+            border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
+            margin-top: 20px; animation: pulse 2s infinite; font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Doctor Grid */
+        .doctor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .dr-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--medical-blue); }
+        
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 12px; width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+
+        /* Appointment Table */
+        .table-container { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: var(--medical-blue); color: white; font-weight: 500; }
+
+        .section-title { border-left: 5px solid var(--medical-blue); padding-left: 15px; margin: 40px 0 20px 0; color: var(--primary-blue); }
+        .add-dr-section { background: #fff; padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px dashed #cbd5e0; }
+        
+        /* SOS List Styling */
+        #sosContactList { background: #fff5f5; padding: 10px; border-radius: 8px; margin: 10px 0; border: 1px solid #feb2b2; }
+        .contact-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #fed7d7; color: #c53030; font-weight: 600; }
+        .contact-item:last-child { border: none; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2 style="margin-top: 0;">PranaSetu</h2>
+        <p style="opacity: 0.8;">Secure Patient Portal</p>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.1);">
+        
+        <div style="margin-top: 30px;">
+            <small>EMERGENCY ACTIONS</small>
+            <button class="sos-btn" onclick="openSOS()">ACTIVATE SOS</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1>Dashboard Overview</h1>
+
+        <div class="add-dr-section">
+            <h3 style="margin-top: 0; color: var(--primary-blue);">+ Add Registered Doctor</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="newDrName" placeholder="Doctor Name" style="flex: 2;">
+                <select id="newDrSpec" style="flex: 2;">
+                    <option value="">Select Specialization</option>
+                    <option>General Physician</option>
+                    <option>Cardiologist</option>
+                    <option>Pediatrician</option>
+                    <option>Dermatologist</option>
+                    <option>Orthopedic Surgeon</option>
+                    <option>Dentist</option>
+                    <option>Neurologist</option>
+                </select>
+                <button onclick="addDoctor()" style="background:var(--primary-blue); color:white; border:none; padding: 0 25px; border-radius:6px; cursor:pointer; height: 45px; margin-top: 10px;">Add Doctor</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">Available Doctors</h2>
+        <div class="doctor-grid" id="doctorGrid">
+            <div class="dr-card">
+                <h3>Dr. Sarah Jenkins</h3>
+                <p style="color:var(--medical-blue); font-weight: bold;">Cardiologist</p>
+                <p style="font-size: 0.9rem; color: #666;">City Heart Center, Mumbai</p>
+                <button onclick="openBooking('Dr. Sarah Jenkins')" style="width:100%; padding:12px; background:var(--medical-blue); color:white; border:none; border-radius:6px; cursor:pointer; font-weight: bold;">Book Appointment</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">Your Appointments</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Doctor</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                        <th>Slot</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentList">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalDrName" style="color: var(--primary-blue);">Book Appointment</h2>
+            <hr>
+            <input type="text" id="patientName" placeholder="Your Full Name">
+            <input type="text" id="disease" placeholder="Symptoms / Reason">
+            <input type="date" id="appointmentDate">
+            <select id="timeSlot">
+                <option>09:00 AM</option>
+                <option>11:00 AM</option>
+                <option>02:00 PM</option>
+                <option>05:00 PM</option>
+            </select>
+            <button onclick="confirmBooking()" style="width:100%; padding:14px; background:var(--success-green); color:white; border:none; border-radius:6px; cursor:pointer; font-weight: bold; font-size: 1rem;">Confirm Appointment</button>
+            <button onclick="closeModal()" style="width:100%; margin-top:15px; background:none; border:none; cursor:pointer; color:#777;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="sosModal" class="modal">
+        <div class="modal-content" style="border: 3px solid var(--emergency-red);">
+            <h2 style="color: var(--emergency-red); margin-top: 0;">Emergency SOS Setup</h2>
+            <p>Linked Emergency Contacts (Doctors/Hospitals):</p>
+            
+            <div id="sosContactList">
+                </div>
+            
+            <div style="display: flex; gap: 5px; margin-top: 15px;">
+                <input type="text" id="sosNum" placeholder="Phone Number" style="margin: 0;">
+                <button onclick="addSOSNumber()" style="background:var(--primary-blue); color:white; border:none; padding: 0 15px; border-radius:6px; cursor:pointer;">Add</button>
+            </div>
+            
+            <hr style="margin: 20px 0;">
+            <button onclick="triggerSOS()" class="sos-btn" style="animation: none; background: var(--emergency-red); margin-top: 0;">BROADCAST ALERT TO ALL</button>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                <button onclick="clearSOS()" style="background:none; border:none; color: #999; cursor:pointer; font-size: 0.8rem;">Clear All Contacts</button>
+                <button onclick="closeSOS()" style="background:none; border:none; color: var(--primary-blue); font-weight: bold; cursor:pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDoctor = "";
+        // Load contacts from LocalStorage or start with empty array
+        let emergencyContacts = JSON.parse(localStorage.getItem('medDashSOS')) || [];
+
+        window.onload = function() {
+            updateSOSUI();
+        };
+
+        // --- Booking Logic ---
+        function openBooking(drName) {
+            selectedDoctor = drName;
+            document.getElementById('modalDrName').innerText = "Booking with " + drName;
+            document.getElementById('bookingModal').style.display = "block";
+        }
+
+        function closeModal() { document.getElementById('bookingModal').style.display = "none"; }
+
+        function confirmBooking() {
+            const name = document.getElementById('patientName').value;
+            const disease = document.getElementById('disease').value;
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('timeSlot').value;
+
+            if (!name || !disease || !date) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            const table = document.getElementById('appointmentList');
+            const row = `<tr>
+                <td>${name}</td>
+                <td>${selectedDoctor}</td>
+                <td>${disease}</td>
+                <td>${date}</td>
+                <td>${time}</td>
+            </tr>`;
+            table.innerHTML += row;
+
+            alert("Appointment successfully scheduled!");
+            closeModal();
+        }
+
+        // --- Add Doctor Logic ---
+        function addDoctor() {
+            const name = document.getElementById('newDrName').value;
+            const spec = document.getElementById('newDrSpec').value;
+            if(!name || !spec) { alert("Enter Doctor Name and Specialization"); return; }
+
+            const grid = document.getElementById('doctorGrid');
+            const card = `<div class="dr-card">
+                <h3>${name}</h3>
+                <p style="color:var(--medical-blue); font-weight: bold;">${spec}</p>
+                <p style="font-size: 0.9rem; color: #666;">Registered Medical Partner</p>
+                <button onclick="openBooking('${name}')" style="width:100%; padding:12px; background:var(--medical-blue); color:white; border:none; border-radius:6px; cursor:pointer; font-weight: bold;">Book Appointment</button>
+            </div>`;
+            grid.innerHTML += card;
+            document.getElementById('newDrName').value = "";
+        }
+
+        // --- SOS Multi-Number Logic ---
+        function openSOS() { 
+            document.getElementById('sosModal').style.display = "block"; 
+            updateSOSUI();
+        }
+        
+        function closeSOS() { document.getElementById('sosModal').style.display = "none"; }
+        
+        function addSOSNumber() {
+            const num = document.getElementById('sosNum').value.trim();
+            if(num) {
+                if(emergencyContacts.length >= 3) {
+                    alert("System limit: 3 Primary Emergency Contacts.");
+                    return;
+                }
+                emergencyContacts.push(num);
+                localStorage.setItem('medDashSOS', JSON.stringify(emergencyContacts));
+                document.getElementById('sosNum').value = "";
+                updateSOSUI();
+            }
+        }
+
+        function updateSOSUI() {
+            const listDiv = document.getElementById('sosContactList');
+            if (emergencyContacts.length === 0) {
+                listDiv.innerHTML = "<p style='color:#999; font-size:0.9rem;'>No emergency numbers linked yet.</p>";
+            } else {
+                listDiv.innerHTML = emergencyContacts.map(n => `
+                    <div class="contact-item">
+                        <span>📞 ${n}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function clearSOS() {
+            if(confirm("Are you sure you want to remove all emergency contacts?")) {
+                emergencyContacts = [];
+                localStorage.removeItem('medDashSOS');
+                updateSOSUI();
+            }
+        }
+
+        // BROADCAST FUNCTION
+        function triggerSOS() {
+            if (emergencyContacts.length === 0) {
+                alert("Error: No emergency contacts found. Please add a hospital or doctor number first.");
+                return;
+            }
+
+            // Logic to simulate sending to all numbers
+            let broadcastList = emergencyContacts.join(", ");
+            
+            // In a real app, you'd trigger a backend API here
+            alert("🚨 EMERGENCY BROADCAST INITIATED!\n\nAlert sent to: " + broadcastList + "\n\nGPS Coordinates and Patient Profile shared with medical responders.");
+            
+            console.log("Broadcasting to: ", emergencyContacts);
+            closeSOS();
+        }
+    </script>
+</body>
+</html>

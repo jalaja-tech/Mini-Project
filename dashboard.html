@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pransetu Dashboard | Health Management</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo">Pransetu</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#">🏠 Home</a></li>
+                <li><a href="#">👤 Profile</a></li>
+                <li><a href="#">⚙️ Settings</a></li>
+                <li class="logout"><a href="index.html">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Welcome back, Rahul</h1>
+                <div class="date-display" id="current-date"></div>
+            </header>
+
+            <section class="services-grid">
+                <!-- Option 1: Medicine Tracker -->
+                <div class="card medicine" onclick="navigateTo('medicine')">
+                    <div class="icon">💊</div>
+                    <h3>Medicine Tracker</h3>
+                    <p>Track dosages and set reminders.</p>
+                </div>
+
+                <!-- Option 2: Period Tracker -->
+                <div class="card period" onclick="navigateTo('period')">
+                    <div class="icon">🌸</div>
+                    <h3>Period Tracker</h3>
+                    <p>Monitor cycles and health insights.</p>
+                </div>
+
+                <!-- Option 3: Doctor Appointments -->
+                <div class="card doctor" onclick="navigateTo('doctor')">
+                    <div class="icon">👨‍⚕️</div>
+                    <h3>Doctor Appointments</h3>
+                    <p>Schedule and manage visits.</p>
+                </div>
+
+                <!-- Option 4: SOS Emergency -->
+                <div class="card sos" onclick="navigateTo('sos')">
+                    <div class="icon">🚨</div>
+                    <h3>SOS Emergency</h3>
+                    <p>Instant alert to emergency contacts.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: hsl(323, 57%, 91%);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+   
+
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.input-group {
+    margin-bottom: 15px;
+
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+
+    
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color:white
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    background-color: rgb(255, 247, 205);
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn-pink { background-color: rgb(245, 119, 153); }
+.btn-blue { background-color: #3498db; }
+
+.result-box {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff0f3;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.hidden { display: none; }
+
+.med-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.med-item {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    border-left: 4px solid #007bff;
+}
+
+

@@ -1,0 +1,122 @@
+:root {
+    --primary-blue: #0d6efd;
+    --dark-navy: #1e293b;
+    --soft-gray: #f8fafc;
+    --teal-accent: #06b6d4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--soft-gray);
+    height: 100vh;
+    display: flex;
+    overflow: hidden; /* Desktop apps usually don't scroll the body */
+}
+
+.desktop-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Left Section - Professional Branding */
+.side-panel {
+    flex: 1; /* Takes up 50% */
+    background: linear-gradient(135deg, #0d6efd 0%, #06b6d4 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 40px;
+}
+
+.panel-content {
+    position: relative;
+    z-index: 2;
+    max-width: 400px;
+}
+
+.logo { font-size: 3rem; font-weight: 600; margin-bottom: 10px; }
+.tagline { font-size: 1.2rem; opacity: 0.9; margin-bottom: 40px; }
+
+.features { list-style: none; }
+.features li { margin-bottom: 15px; font-size: 1.1rem; }
+
+/* Right Section - Form Area */
+.form-panel {
+    flex: 1; /* Takes up 50% */
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.form-container { width: 100%; max-width: 400px; }
+
+h2 { color: var(--dark-navy); font-size: 2rem; margin-bottom: 8px; }
+.subtitle { color: #64748b; margin-bottom: 32px; }
+
+.input-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--dark-navy); }
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    color: #64748b;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--dark-navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.main-btn:hover { transform: translateY(-2px); background: #000; }
+
+.switch-text {
+    text-align: center;
+    margin-top: 24px;
+    color: #64748b;
+}
+
+.switch-text span {
+    color: var(--primary-blue);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.hidden { display: none; }
+
+/* Responsive: Stack vertically on mobile */
+@media (max-width: 900px) {
+    .desktop-wrapper { flex-direction: column; }
+    .side-panel { display: none; } /* Hide the branding panel on mobile for focus */
+}
