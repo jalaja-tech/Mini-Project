@@ -5,44 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Tracker Mini-Project</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
+
 <body>
 
-    <div class="container">
-        <!-- Section 1: Period Tracker -->
-        <section class="card period-section">
-            <h2> 🩸Period Tracker</h2>
-            <div class="input-group">
-                <label>Last Period Start Date</label>
-                <input type="date" id="lastPeriodDate">
-            </div>
-            <div class="input-group">
-                <label>Average Cycle (Days)</label>
-                <input type="number" id="cycleLength" value="28">
-            </div>
-            <button class="btn btn-pink" onclick="calculatePeriod()">Predict Dates</button>
-            <div id="periodResult" class="result-box hidden"></div>
-        </section>
+<div class="container">
 
-        <!-- Section 2: Medicine Tracker -->
-        <section class="card medicine-section">
-            <h2>💊 Medicine Reminder</h2>
-            <div class="input-group">
-                
-                <input type="text" id="medName" placeholder="Medicine Name">
-            </div>
-            <div class="input-group">
-                <input type="time" id="medTime">
-            </div>
-            <button class="btn btn-blue" onclick="addMedicine()">Set Alert</button>
-            
-            <ul id="medList" class="med-list">
-                <!-- Medicines will appear here -->
-            </ul>
-        </section>
-    </div>
+    <!-- Section 1: Period Tracker -->
+    <section class="card period-section">
+        <h2>🩸 Period Tracker</h2>
 
-    
+        <div class="input-group">
+            <label>Last Period Start Date</label>
+            <input type="date" id="lastPeriodDate">
+        </div>
+
+        <div class="input-group">
+            <label>Average Cycle (Days)</label>
+            <input type="number" id="cycleLength" value="28">
+        </div>
+
+        <button class="btn btn-pink" onclick="calculatePeriod()">Predict Dates</button>
+
+        <div id="periodResult" class="result-box hidden"></div>
+    </section>
+
+    <!-- Section 2: Medicine Tracker -->
+    <section class="card medicine-section">
+        <h2>💊 Medicine Reminder</h2>
+
+        <div class="input-group">
+            <input type="text" id="medName" placeholder="Medicine Name">
+        </div>
+
+        <div class="input-group">
+            <input type="time" id="medTime">
+        </div>
+
+        <button class="btn btn-blue" onclick="addMedicine()">Set Alert</button>
+
+        <ul id="medList" class="med-list"></ul>
+    </section>
+
+    <!-- Section 3: SOS Emergency -->
+    <section class="card sos-section">
+        <h2>🚨 SOS Emergency</h2>
+
+        <div class="input-group">
+            <input type="text" id="sosPhone" placeholder="Enter phone (+91XXXXXXXXXX)">
+        </div>
+
+        <button class="btn btn-pink" onclick="saveSOSContacts()">Save Contact</button>
+        <button class="btn btn-blue" onclick="sendSOS()">Send SOS</button>
+    </section>
+
+</div>
+
+<!-- IMPORTANT: Load JS at bottom -->
+<script src="script.js"></script>
+
 </body>
 </html>
